@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chimera Data Terminal</title>
+<style>
+  body {
+    background: #000;
+    color: #0f0;
+    font-family: "Courier New", Courier, monospace;
+    margin: 0;
+    padding: 10px;
+  }
+  #terminal {
+    width: 100%;
+    height: 90vh;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    padding-bottom: 10px;
+  }
+  #inputLine {
+    width: 100%;
+    border: none;
+    background: none;
+    color: #0f0;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+  }
+  .prompt {
+    display: inline;
+  }
+</style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<div class="prompt">
+  > <input type="text" id="inputLine" autofocus autocomplete="off" placeholder="Enter command...">
+</div>
+
+<script>
+// Predefined responses
+const responses = {
+  "HELP": "Available commands:\n- HELP\n- MISSION LOG\n- ASPECTS\n- TYTHON PROJECT\n- EXIT",
+  "MISSION LOG": "Mission 1: Operation Black Current\nMission 2: Operation Requiem\nMission 3: Vector Ascent\nMission 4: Hollow Sundown",
+  "ASPECTS": "Aspects:\n- Aspect of the Basilisk (Gemma Knight)\n- (Other Aspects pending)",
+  "TYPHON PROJECT": "Project: Typhon\nExternal Network Name: Nullpath\nPhysical Site: Cold Storage\nStatus: Active Modules:\n- Core Compute (Pending)\n- Power & Redundancy (Pending)",
+  "EXIT": "Closing terminal... Goodbye.",
+  // Add more mappings as needed
+};
+
+// Terminal output function
+function printOutput(text) {
+  const terminal = document.getElementById("terminal");
+  terminal.textContent += text + "\n\n";
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+// Handle input
+document.getElementById("inputLine").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    const input = this.value.toUpperCase().trim();
+    printOutput("> " + input);
+
+    if (responses[input]) {
+      printOutput(responses[input]);
+    } else {
+      printOutput("Unknown command: " + input + "\nType HELP for list of commands.");
+    }
+
+    this.value = "";
+    e.preventDefault();
+  }
+});
+
+// Initial terminal prompt
+printOutput("Welcome to Chimera Data Terminal. Type HELP for commands.");
+</script>
+
+</body>
+</html>
