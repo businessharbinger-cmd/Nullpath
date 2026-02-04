@@ -1,3 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NULLPATH Data Terminal</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 10px;
+    background-color: #000;
+    color: #00ff66;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  #terminal {
+    width: 100%;
+    height: 90vh;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+  }
+
+  .prompt {
+    display: flex;
+    align-items: center;
+  }
+
+  .prompt span {
+    margin-right: 6px;
+  }
+
+  #inputLine {
+    background: none;
+    border: none;
+    color: #00ff66;
+    font-family: inherit;
+    font-size: 1em;
+    outline: none;
+    flex: 1;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="terminal"></div>
+
+<div class="prompt">
+  <span>&gt;</span>
+  <input type="text" id="inputLine" autocomplete="off" />
+</div>
+
 <script>
 const terminal = document.getElementById("terminal");
 const inputLine = document.getElementById("inputLine");
@@ -11,13 +65,31 @@ inputLine.disabled = true;
 // Terminal responses
 const responses = {
   "HELP": "Available commands:\n- HELP\n- MISSION LOG\n- ASPECTS\n- REDACTED PROJECT\n- EXIT",
-  "MISSION LOG": "Mission 1: Operation Black Current\nMission 2: Operation Requiem\nMission 3: Vector Ascent\nMission 4: Hollow Sundown",
-  "ASPECTS": "Aspects:\n- Basilisk\n- Others: [PENDING]",
-  "REDACTED PROJECT": "ACCESS LEVEL: ASPECT\nProject: TYPHON\nExternal Alias: Nullpath\nSite: Cold Storage\nStatus: UNDER CONSTRUCTION",
+
+  "MISSION LOG":
+    "MISSION LOG\n" +
+    "• Black Current\n" +
+    "• Vector Ascent\n" +
+    "• Hollow Sundown\n" +
+    "• [REDACTED]",
+
+  "ASPECTS":
+    "CHOSEN ASPECTS\n" +
+    "------------------\n" +
+    "• Basilisk\n" +
+    "• Additional Aspects: PENDING",
+
+  "REDACTED PROJECT":
+    "ACCESS LEVEL: ASPECT\n\n" +
+    "PROJECT NAME: REDACTED\n" +
+    "EXTERNAL ALIAS: NULLPATH\n" +
+    "FACILITY: COLD STORAGE\n" +
+    "STATUS: UNDER CONSTRUCTION",
+
   "EXIT": "Connection terminated."
 };
 
-// Print helper
+// Output helper
 function printOutput(text) {
   terminal.textContent += text + "\n";
   terminal.scrollTop = terminal.scrollHeight;
@@ -55,7 +127,7 @@ function runBootSequence() {
   }
 }
 
-// Handle input
+// Input handler
 inputLine.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
     const input = this.value.trim();
@@ -92,6 +164,9 @@ inputLine.addEventListener("keydown", function (e) {
   }
 });
 
-// Start boot automatically
+// Start boot
 runBootSequence();
 </script>
+
+</body>
+</html>
