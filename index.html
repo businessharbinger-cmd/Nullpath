@@ -40,6 +40,45 @@
 <div class="prompt">
   > <input type="text" id="inputLine" autofocus autocomplete="off" placeholder="Enter command...">
 </div>
+  
+<script>
+const terminal = document.getElementById("terminal");
+const inputLine = document.getElementById("inputLine");
+
+let authenticated = false;
+const REQUIRED_USERNAME = "BASILISK";
+
+// ---- BOOT SEQUENCE ----
+const bootLines = [
+  "CHIMERA NODE // COLD STORAGE",
+  "Firmware v3.17.Δ",
+  "",
+  "Initializing memory pools...",
+  "Loading encrypted modules...",
+  "Verifying kernel integrity...",
+  "Mounting Nullpath interface...",
+  "Establishing secure relay...",
+  "Checking Aspect authorization...",
+  "",
+  "SYSTEM STATUS: NOMINAL",
+  ""
+];
+
+let bootIndex = 0;
+
+function runBootSequence() {
+  if (bootIndex < bootLines.length) {
+    printOutput(bootLines[bootIndex]);
+    bootIndex++;
+    setTimeout(runBootSequence, 350); // speed of boot text
+  } else {
+    printOutput("USERNAME REQUIRED.");
+    printOutput("");
+    printOutput("USERNAME:");
+    inputLine.disabled = false;
+    inputLine.focus();
+  }
+}
 
 <script>
 const terminal = document.getElementById("terminal");
@@ -50,10 +89,10 @@ const REQUIRED_USERNAME = "BASILISK";
 
 // Predefined responses (only accessible after auth)
 const responses = {
-  "HELP": "Available commands:\n- HELP\n- MISSION LOG\n- ASPECTS\n- TYPHON PROJECT\n- EXIT",
-  "MISSION LOG": "Mission 1: Vector Ascent\nMission 2: Hollow Sundown\nMission 3: [REDACTED]",
-  "ASPECTS": "Aspects:\n- Aspect of the Basilisk (Gemma Knight)\n- Additional Aspects: [PENDING]",
-  "TYPHON PROJECT": "ACCESS LEVEL: ASPECT\nProject: Typhon\nExternal: Nullpath\nSite: Cold Storage\nStatus: BUILD IN PROGRESS",
+  "HELP": "Available commands:\n- HELP\n- MISSION LOG\n- ASPECTS\n- REDACTED PROJECT\n- EXIT",
+  "MISSION LOG": "Mission 1: Operation Black Current\nMission 2: Operation Requiem\nMission 3: Vector Ascent\nMission 4: Hollow Sundown",
+  "ASPECTS": "Aspects:\n- Aspect of the Basilisk\n- Additional Aspects: [PENDING]",
+  "REDACTED PROJECT": "ACCESS LEVEL: ASPECT\nProject: REDACTED\nExternal: Nullpath\nSite: Cold Storage\nStatus: BUILD IN PROGRESS",
   "EXIT": "Connection terminated."
 };
 
@@ -108,5 +147,6 @@ inputLine.addEventListener("keydown", function (e) {
 
 </body>
 </html>
+
 
 
