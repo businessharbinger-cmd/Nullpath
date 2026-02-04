@@ -14,17 +14,26 @@
     font-family: "Courier New", Courier, monospace;
   }
 
+  h1 {
+    color: #00ffff;
+    font-family: monospace;
+    margin: 0 0 10px 0;
+  }
+
   #terminal {
     width: 100%;
-    height: 90vh;
+    height: 85vh;
     overflow-y: auto;
     white-space: pre-wrap;
     box-sizing: border-box;
+    border-top: 1px solid #00ff66;
+    padding-top: 5px;
   }
 
   .prompt {
     display: flex;
     align-items: center;
+    margin-top: 5px;
   }
 
   .prompt span {
@@ -45,6 +54,8 @@
 
 <body>
 
+<h1>NULLPATH DATA TERMINAL</h1>
+
 <div id="terminal"></div>
 
 <div class="prompt">
@@ -59,8 +70,8 @@ const inputLine = document.getElementById("inputLine");
 let authenticated = false;
 const REQUIRED_USERNAME = "BASILISK";
 
-// Disable input during boot
-inputLine.disabled = true;
+// Disable input until username entered
+inputLine.disabled = false;
 
 // Terminal responses
 const responses = {
@@ -95,37 +106,9 @@ function printOutput(text) {
   terminal.scrollTop = terminal.scrollHeight;
 }
 
-// ---- BOOT SEQUENCE ----
-const bootLines = [
-  "CHIMERA NODE // COLD STORAGE",
-  "Firmware v3.17.Δ",
-  "",
-  "Initializing memory pools...",
-  "Loading encrypted modules...",
-  "Verifying kernel integrity...",
-  "Mounting Nullpath interface...",
-  "Establishing secure relay...",
-  "Checking Aspect authorization...",
-  "",
-  "SYSTEM STATUS: NOMINAL",
-  ""
-];
-
-let bootIndex = 0;
-
-function runBootSequence() {
-  if (bootIndex < bootLines.length) {
-    printOutput(bootLines[bootIndex]);
-    bootIndex++;
-    setTimeout(runBootSequence, 350);
-  } else {
-    printOutput("USERNAME REQUIRED.");
-    printOutput("");
-    printOutput("USERNAME:");
-    inputLine.disabled = false;
-    inputLine.focus();
-  }
-}
+// Initial username prompt
+printOutput("USERNAME REQUIRED.");
+printOutput("");
 
 // Input handler
 inputLine.addEventListener("keydown", function (e) {
@@ -163,9 +146,6 @@ inputLine.addEventListener("keydown", function (e) {
     e.preventDefault();
   }
 });
-
-// Start boot
-runBootSequence();
 </script>
 
 </body>
